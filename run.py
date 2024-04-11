@@ -1,5 +1,4 @@
-from telegram import App
+from app import App
 
 app = App()
-
 app.run()

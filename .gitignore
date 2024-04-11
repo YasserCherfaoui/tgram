@@ -2,6 +2,8 @@ venv
 anon.session
 oop.session
 error*
+pyright*
+
 __pycache__
-pyrightconfig.json
+
 
