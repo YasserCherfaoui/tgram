@@ -29,12 +29,15 @@ class App:
         self.shared_data.dialogs_layout = []
         async for dialog in self.client.iter_dialogs():
             if i < self.ui.scr_h - 2:
-                self.ui.write_chat(i + 1, 2, dialog)
                 self.shared_data.dialogs_layout.append(
                     DialogsLayoutChild(dialog, (i + 1, 2))
                 )
+            else:
+                self.shared_data.dialogs_layout.append(
+                    DialogsLayoutChild(dialog, (i + 1, 2), True)
+                )
             i += 1
-            self.ui.refresh()
+        self.ui.draw_chats()
 
     async def update_ui(self):
         await self.load_dialogs()

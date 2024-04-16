@@ -55,29 +55,39 @@ class UI:
                 self.chat_max_w - 4,
             )
 
+    def draw_chats(self):
+        for dialog in self.shared_data.dialogs_layout:
+            if not dialog.hidden:
+                self.write_chat(dialog.position[0], dialog.position[1], dialog.dialog)
+                self.refresh()
+
     def dialog_forward(self):
-        current_dialog = self.shared_data.current_dialog
-        if current_dialog is None:
-            self.shared_data.current_dialog = self.shared_data.dialogs_layout[0]
-        else:
-            i = get_dialog_index(self.shared_data.dialogs_layout, current_dialog)
-            self.shared_data.current_dialog = self.shared_data.dialogs_layout[i + 1]
-        self.update_ui()
+        if len(self.shared_data.dialogs_layout) != 0:
+            current_dialog = self.shared_data.current_dialog
+            if current_dialog is None:
+                self.shared_data.current_dialog = self.shared_data.dialogs_layout[0]
+            else:
+                i = get_dialog_index(self.shared_data.dialogs_layout, current_dialog)
+                # print(self.shared_data.dialogs_layout[i + 1])
+                self.shared_data.current_dialog = self.shared_data.dialogs_layout[i + 1]
+            self.update_ui()
 
     def update_ui(self):
         # Chats
         for dialog in self.shared_data.dialogs_layout:
-            self.write_chat(dialog.position[0], dialog.position[1], dialog.dialog)
+            if not dialog.hidden:
+                self.write_chat(dialog.position[0], dialog.position[1], dialog.dialog)
             self.refresh()
 
     def dialog_backward(self):
-        current_dialog = self.shared_data.current_dialog
-        if current_dialog is None:
-            self.shared_data.current_dialog = self.shared_data.dialogs_layout[0]
-        else:
-            i = get_dialog_index(self.shared_data.dialogs_layout, current_dialog)
-            self.shared_data.current_dialog = self.shared_data.dialogs_layout[i - 1]
-        self.update_ui()
+        if len(self.shared_data.dialogs_layout) != 0:
+            current_dialog = self.shared_data.current_dialog
+            if current_dialog is None:
+                self.shared_data.current_dialog = self.shared_data.dialogs_layout[0]
+            else:
+                i = get_dialog_index(self.shared_data.dialogs_layout, current_dialog)
+                self.shared_data.current_dialog = self.shared_data.dialogs_layout[i - 1]
+            self.update_ui()
 
     def write_message(self, y: int, x: int, message: str):
         self.write_line(y, x, message, self.messages_max_w)

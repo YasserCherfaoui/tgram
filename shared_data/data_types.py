@@ -6,3 +6,4 @@ from dataclasses import dataclass
 class DialogsLayoutChild:
     dialog: Dialog
     position: tuple[int, int]
+    hidden: bool = False
